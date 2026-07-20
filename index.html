@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu te mets combien ? — POC</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ ÉCRAN DE CONFIGURATION ============ -->
+  <section id="setup-screen" class="screen">
+    <div class="setup-card">
+      <h1>Tu te mets combien&nbsp;?</h1>
+      <p class="subtitle">Prototype web — version locale</p>
+
+      <label class="field">
+        <span>Nombre de joueurs</span>
+        <select id="player-count">
+          <option value="1">1 joueur</option>
+          <option value="2" selected>2 joueurs</option>
+          <option value="3">3 joueurs</option>
+          <option value="4">4 joueurs</option>
+        </select>
+      </label>
+
+      <div id="player-names" class="player-names"><!-- champs générés en JS --></div>
+
+      <button id="start-btn" class="btn btn-primary btn-big">Commencer la partie</button>
+
+      <p class="hint">
+        Chaque joueur avance sur le parcours. La couleur de sa case impose le thème.
+        Il annonce «&nbsp;je me mets X&nbsp;» (1 à 10) : plus c'est haut, plus c'est dur,
+        mais plus il avance de cases s'il répond juste.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ ÉCRAN DE JEU ============ -->
+  <section id="game-screen" class="screen hidden">
+    <header class="topbar">
+      <h1 class="topbar-title">Tu te mets combien&nbsp;?</h1>
+      <button id="restart-btn" class="btn btn-ghost">Recommencer</button>
+    </header>
+
+    <div class="game-layout">
+
+      <!-- Plateau -->
+      <div class="board-panel">
+        <div id="board" class="board"><!-- cases générées en JS --></div>
+        <div class="legend" id="legend"><!-- légende des thèmes en JS --></div>
+      </div>
+
+      <!-- Panneau joueurs + question -->
+      <aside class="side-panel">
+        <div class="players-box" id="players-box"><!-- pions/positions en JS --></div>
+
+        <div class="turn-box">
+          <div class="turn-header">
+            <span id="current-avatar" class="current-avatar"></span>
+            <div class="turn-header-text">
+              <span class="turn-label">Au tour de</span>
+              <span id="current-player" class="current-player">—</span>
+            </div>
+          </div>
+          <div class="theme-badge" id="theme-badge">Thème</div>
+
+          <!-- Étape 1 : choix de la difficulté -->
+          <div id="bet-step" class="bet-step">
+            <p class="bet-question">Tu te mets combien&nbsp;?</p>
+            <div id="bet-buttons" class="bet-buttons"><!-- boutons 1-10 en JS --></div>
+          </div>
+
+          <!-- Étape 2 : question + arbitrage -->
+          <div id="question-step" class="question-step hidden">
+            <div class="chosen-level">Niveau choisi : <strong id="chosen-level">–</strong></div>
+            <div class="question-text" id="question-text"></div>
+
+            <div id="answer-block" class="answer-block hidden">
+              <span class="answer-label">Réponse (arbitre)</span>
+              <div class="answer-text" id="answer-text"></div>
+            </div>
+
+            <div class="arbiter-controls">
+              <button id="reveal-btn" class="btn btn-secondary">Révéler la réponse</button>
+              <div id="verdict-buttons" class="verdict-buttons hidden">
+                <button id="correct-btn" class="btn btn-success">Bonne réponse ✔</button>
+                <button id="wrong-btn" class="btn btn-danger">Mauvaise réponse ✘</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ ÉCRAN DE VICTOIRE ============ -->
+  <section id="win-screen" class="screen hidden">
+    <div class="setup-card win-card">
+      <div class="trophy">🏆</div>
+      <h1>Victoire&nbsp;!</h1>
+      <p id="winner-name" class="winner-name">—</p>
+      <button id="replay-btn" class="btn btn-primary btn-big">Rejouer</button>
+    </div>
+  </section>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
